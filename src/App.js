@@ -5,6 +5,7 @@ import AnecdoteList, { Anecdote } from "./components/anecdotes";
 import About from "./components/about";
 import Footer from "./components/footer";
 import CreateNew from "./components/createNew";
+import Notification from "./components/notification";
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -54,6 +55,7 @@ const App = () => {
 
   return (
     <>
+      <Notification notification={notification} />
       <h1>Software anecdotes</h1>
       <div>
         <Link style={padding} to="/">
@@ -73,7 +75,12 @@ const App = () => {
           element={<Anecdote anecdote={anecdote} />}
         />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
-        <Route path="/create" element={<CreateNew />} />
+        <Route
+          path="/create"
+          element={
+            <CreateNew addNew={addNew} notificationSetter={setNotification} />
+          }
+        />
         <Route path="/about" element={<About />} />
       </Routes>
 

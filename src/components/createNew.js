@@ -1,18 +1,30 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const CreateNew = (props) => {
+const CreateNew = ({ addNew, notificationSetter }) => {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [info, setInfo] = useState("");
+  const naviagte = useNavigate("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.addNew({
+    addNew({
       content,
       author,
       info,
       votes: 0,
     });
+
+    notificationSetter(`A new anecdote ${content} has been added`);
+    setTimeout(() => {
+      notificationSetter("");
+    }, 5000);
+
+    setContent("");
+    setAuthor("");
+    setInfo("");
+    naviagte("/");
   };
 
   return (
