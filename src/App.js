@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useMatch } from "react-router-dom";
 
-import AnecdoteList from "./components/anecdoteList";
+import AnecdoteList, { Anecdote } from "./components/anecdotes";
 import About from "./components/about";
 import Footer from "./components/footer";
 import CreateNew from "./components/createNew";
@@ -24,6 +24,11 @@ const App = () => {
     },
   ]);
   const [notification, setNotification] = useState("");
+
+  const match = useMatch("/anecdotes/:id");
+  const anecdote = match
+    ? anecdotes.find((anecdote) => anecdote.id === Number(match.params.id))
+    : null;
 
   let padding = {
     padding: 5,
@@ -63,6 +68,10 @@ const App = () => {
       </div>
 
       <Routes>
+        <Route
+          path="/anecdotes/:id"
+          element={<Anecdote anecdote={anecdote} />}
+        />
         <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
         <Route path="/create" element={<CreateNew />} />
         <Route path="/about" element={<About />} />
