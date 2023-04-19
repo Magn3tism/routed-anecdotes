@@ -4,9 +4,9 @@ import { useField } from "../hooks";
 const CreateNew = ({ addNew, notificationSetter }) => {
   const naviagte = useNavigate("");
 
-  const content = useField("text");
-  const author = useField("text");
-  const info = useField("text");
+  const { reset: resetContent, ...content } = useField("text");
+  const { reset: resetAuthor, ...author } = useField("text");
+  const { reset: resetInfo, ...info } = useField("text");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,23 +25,32 @@ const CreateNew = ({ addNew, notificationSetter }) => {
     naviagte("/");
   };
 
+  const handleReset = () => {
+    resetContent();
+    resetAuthor();
+    resetInfo();
+  };
+
   return (
     <div>
       <h2>create a new anecdote</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          content
+          Content
           <input {...content} />
         </div>
         <div>
-          author
+          Author
           <input {...author} />
         </div>
         <div>
-          url for more info
+          URL For More Info
           <input {...info} />
         </div>
-        <button>create</button>
+        <button>Create</button>
+        <button onClick={handleReset} type="button">
+          Reset
+        </button>
       </form>
     </div>
   );
