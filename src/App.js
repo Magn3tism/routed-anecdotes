@@ -74,7 +74,10 @@ const App = () => {
           path="/anecdotes/:id"
           element={<Anecdote anecdote={anecdote} />}
         />
-        <Route path="/" element={<AnecdoteList anecdotes={anecdotes} />} />
+        <Route
+          path="/"
+          element={<AnecdoteList anecdotes={anecdotes} vote={vote} />}
+        />
         <Route
           path="/create"
           element={
